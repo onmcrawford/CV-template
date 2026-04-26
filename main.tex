@@ -3,11 +3,6 @@
 % margin settings
 \usepackage[a4paper,margin=1cm]{geometry}
 
-% size of various parts
-\setlength{\textfloatsep}{5pt}
-\setlength{\intextsep}{5pt}
-\setlength{\parskip}{0pt}
-
 % allow precise placement of figures
 \usepackage{float}
 
@@ -15,8 +10,18 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 
+% the multi column support
+\usepackage{paracol}
+
 % utilities
 \usepackage{lipsum}
+
+% size of various parts
+\setlength{\columnsep}{1cm} % important for columns
+\columnratio{0.3,0.7}
+\setlength{\textfloatsep}{5pt}
+\setlength{\intextsep}{5pt}
+\setlength{\parskip}{0pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % drawing the actual BG
@@ -25,7 +30,7 @@
     \begin{tikzpicture}[remember picture,overlay]
       \fill[#1!20]
       (current page.south west)
-      rectangle ([xshift=0.3\paperwidth]current page.north west);
+      rectangle ([xshift=0.33\paperwidth]current page.north west);
     \end{tikzpicture}%
   }
 }
@@ -33,7 +38,11 @@
 \drawBackground{blue}
 
 \begin{document}
-
-\lipsum{1}
+\begin{paracol}{2}
+  \switchcolumn[0]
+  \lipsum[1]
+  \switchcolumn
+  \lipsum{1}
+\end{paracol}
 
 \end{document}
