@@ -1,7 +1,39 @@
 \documentclass{article}
 
+% margin settings
+\usepackage[a4paper,margin=1cm]{geometry}
+
+% size of various parts
+\setlength{\textfloatsep}{5pt}
+\setlength{\intextsep}{5pt}
+\setlength{\parskip}{0pt}
+
+% allow precise placement of figures
+\usepackage{float}
+
+% background drawing settings
+\usepackage{tikz}
+\usepackage{eso-pic}
+
+% utilities
+\usepackage{lipsum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% drawing the actual BG
+\newcommand{\drawBackground}[1]{
+  \AddToShipoutPictureBG{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[#1!20]
+      (current page.south west)
+      rectangle ([xshift=0.3\paperwidth]current page.north west);
+    \end{tikzpicture}%
+  }
+}
+
+\drawBackground{blue}
+
 \begin{document}
 
-Hello. This is the test \texttt{build/}.
+\lipsum{1}
 
 \end{document}
