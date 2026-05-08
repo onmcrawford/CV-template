@@ -1,5 +1,8 @@
 \documentclass{article}
 
+% set the text to english explicitly
+\usepackage[english]{babel}
+
 % margin settings
 \usepackage[a4paper,margin=1cm]{geometry}
 
@@ -14,7 +17,14 @@
 \usepackage{paracol}
 
 % utilities
-\usepackage{lipsum}
+\usepackage{lipsum} % for placeholder gibberish
+\usepackage{fontawesome5} % for cool icons
+
+% for font support
+\usepackage{fontspec}
+
+% we want to use nunito
+\newfontfamily\titlefont{Nunito Light}
 
 % size of various parts
 \setlength{\columnsep}{1cm} % important for columns
@@ -35,13 +45,27 @@
   }
 }
 
+% we want a way to draw a proper title
+\makeatletter
+\renewcommand{\maketitle}{
+  \noindent
+  {\titlefont\Huge\@author} \\
+  \medskip \\
+}
+\makeatother
+
 \drawBackground{blue}
+
+\author{Your Name}
+\date{today}
 
 \begin{document}
 \begin{paracol}{2}
   \switchcolumn[0]
+  \sloppy
   \lipsum[1]
   \switchcolumn
+  \maketitle
   \lipsum{1}
 \end{paracol}
 
