@@ -4,7 +4,7 @@
 \usepackage[english]{babel}
 
 % margin settings
-\usepackage[a4paper,margin=1cm]{geometry}
+\usepackage[a4paper,margin=1cm,left=0.5cm,top=0.5cm]{geometry}
 
 % allow precise placement of figures
 \usepackage{float}
@@ -13,60 +13,125 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 
+% to draw images
+\usepackage{graphicx}
+
 % the multi column support
 \usepackage{paracol}
 
 % utilities
 \usepackage{lipsum} % for placeholder gibberish
-\usepackage{fontawesome5} % for cool icons
+\usepackage{fontawesome6} % for cool icons
+\usepackage[hidelinks]{hyperref} % for adding links
 
 % for font support
 \usepackage{fontspec}
 
+% \RequirePackage{etex}
+\usepackage{worldflags}
+
 % we want to use nunito
 \newfontfamily\titlefont{Nunito Light}
+\newfontfamily\sectionfont{Nunito}
 
 % size of various parts
 \setlength{\columnsep}{1cm} % important for columns
-\columnratio{0.3,0.7}
+\columnratio{0.4,0.6}
 \setlength{\textfloatsep}{5pt}
 \setlength{\intextsep}{5pt}
 \setlength{\parskip}{0pt}
+\setlength{\parindent}{0cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % drawing the actual BG
 \newcommand{\drawBackground}[1]{
   \AddToShipoutPictureBG{%
     \begin{tikzpicture}[remember picture,overlay]
-      \fill[#1!20]
+      \fill[#1]
       (current page.south west)
-      rectangle ([xshift=0.33\paperwidth]current page.north west);
+      rectangle ([xshift=0.40\paperwidth]current page.north west);
     \end{tikzpicture}%
   }
 }
 
-% we want a way to draw a proper title
+% we want a way to draw a proper title, so we redefine
+% requires author to be set
 \makeatletter
 \renewcommand{\maketitle}{
-  \noindent
-  {\titlefont\Huge\@author} \\
+  \vspace*{0.5cm}
+  {\titlefont\fontsize{40pt}{60pt}\selectfont\@author} \\
   \medskip \\
 }
 \makeatother
 
-\drawBackground{blue}
+% to have sections within the cv
+\renewcommand{\section}[1]{
+  \par\vspace*{1cm}
+  \MakeUppercase{\sectionfont\fontsize{15pt}{12pt}\selectfont#1}
+  \bigskip\par
+}
+
+% for drawing portrait in top left
+% argument 1: x offset
+% argument 2: y offset
+% argument 3: scale factor
+\newcommand{\portrait}[3]{
+  \begin{center}
+    \begin{tikzpicture}
+      \clip (0,0) circle (2cm);
+      \node at (#1,#2) {\includegraphics[width=#3]{your-image.jpg}};
+      \draw[line width=1.5pt,color=white] (0,0) circle (2cm);
+    \end{tikzpicture}
+  \end{center}
+}
+
+\definecolor{background}{HTML}{0a405e}
+\drawBackground{background}
 
 \author{Your Name}
 \date{today}
 
 \begin{document}
+% global document setting(s)
+\sloppy
+
 \begin{paracol}{2}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
   \switchcolumn[0]
-  \sloppy
-  \lipsum[1]
-  \switchcolumn
+  \color{white}
+  \portrait{0}{-0.5}{4cm}
+
+  \vspace{2cm}
+
+  \section{Contact}
+  {\Large
+    \begin{tabular}{c l}
+      \faEnvelope & \href{mailto:example@example.com}{\texttt{example@example.com}} \\
+      \faPhone & +01 2 34567890\\
+      % \faGlobe & \\
+      \faGithub & \href{https://github.com/example}{/example}\\
+      \faLinkedin & \href{https://www.linkedin.com/in/YOUR_LINKEDIN}{YOUR LINKEDIN} \\
+  \end{tabular}}
+
+  % \vspace*{\fill}
+  \vfill
+
+  \section{Outside of work}
+  {\Huge\faMusic~~\faTent~~\faSailboat}
+
+  \section{Languages}
+  \begin{center}
+    \worldflag[width=1cm,length=1.5cm]{NL}
+    \hspace{1cm}
+    \worldflag[width=1cm,length=1.5cm]{GB}
+  \end{center}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
+  \switchcolumn[1]
+  \color{black}
+
   \maketitle
-  \lipsum{1}
+  \lipsum[1]
 \end{paracol}
 
 \end{document}
