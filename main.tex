@@ -31,7 +31,7 @@
 \usepackage{worldflags}
 
 % we want to use nunito
-\newfontfamily\titlefont{Nunito Light}
+\newfontfamily\titlefont{Nunito Bold}
 \newfontfamily\sectionfont{Nunito}
 
 % size of various parts
@@ -41,6 +41,9 @@
 \setlength{\intextsep}{5pt}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0cm}
+
+% switch of page numbering
+\pagenumbering{gobble}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % drawing the actual BG
@@ -66,9 +69,15 @@
 
 % to have sections within the cv
 \renewcommand{\section}[1]{
-  \par\vspace*{1cm}
+  \vspace{1cm}
   \MakeUppercase{\sectionfont\fontsize{15pt}{12pt}\selectfont#1}
   \bigskip\par
+}
+
+\renewcommand{\subsection}[1]{
+  \vspace{0.5cm}
+  {\sectionfont\fontsize{13pt}{12pt}\selectfont#1}
+  \vspace{0.2cm}
 }
 
 % for drawing portrait in top left
@@ -107,31 +116,77 @@
   {\Large
     \begin{tabular}{c l}
       \faEnvelope & \href{mailto:example@example.com}{\texttt{example@example.com}} \\
-      \faPhone & +01 2 34567890\\
-      % \faGlobe & \\
-      \faGithub & \href{https://github.com/example}{/example}\\
-      \faLinkedin & \href{https://www.linkedin.com/in/YOUR_LINKEDIN}{YOUR LINKEDIN} \\
+      \faPhone & +01 2 34567890 \\
+      \faGlobe & Your Home \\
+      & 1234 AB, Some City \\
+      \faGithub & \href{https://github.com/example}{/github}\\
+      \faLinkedin & \href{https://www.linkedin.com/in/your-linkedin}{your linkedin} \\
   \end{tabular}}
 
-  % \vspace*{\fill}
-  \vfill
+  \vspace{4cm}
 
-  \section{Outside of work}
-  {\Huge\faMusic~~\faTent~~\faSailboat}
+  \section{Interests}
+  % list of some cutesie icons here
+  \begin{center}
+    {\Huge\faMusic~~\faTent~~\faSailboat}
+  \end{center}
+
+  \vspace{1cm}
 
   \section{Languages}
   \begin{center}
     \worldflag[width=1cm,length=1.5cm]{NL}
-    \hspace{1cm}
+    \hspace{0.2cm}
     \worldflag[width=1cm,length=1.5cm]{GB}
+    \hspace{0.2cm}
+    \worldflag[width=1cm,length=1.5cm]{DE}
   \end{center}
 
+  \vspace{3cm}
+  Typeset in \LaTeX, original work by Otto Crawford \textcopyright ~2026
+  distributed under GPL-3.0, available at \url{github.com/onmcrawford/CV-template}
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%<
   \switchcolumn[1]
   \color{black}
 
   \maketitle
-  \lipsum[1]
+
+  \section{Experience}
+  \subsection{Something}
+  Sep 2025 - present \par
+  \lipsum[1][1-3]
+
+  \subsection{Something else}
+  Sep 2025 - present\par
+  \lipsum[1][3-6]
+
+  \subsection{Another thing}
+  Sep 2025 - present \par
+  \lipsum[1][6-9]
+
+  \subsection{And this}
+  2014 - present\par
+  \lipsum[1][9-12]
+
+  \subsection{And that}
+  Jul 2024 - May 2025\par
+  \lipsum[1][12-15]
+
+  \subsection{Also this thing}
+  Aug 2023 - Apr 2024\par
+  \lipsum[1][15-18]
+
+  \section{education}
+
+  \subsection{Leiden University}
+  Sep 2025 - Feb 2029 \par
+
+  Bachelor of Science - BSc, Computer Science
+
+  \subsection{Some highschool}
+  Sep 1992 - Jun 2025 \par
+  \lipsum[2][1-3]
+
 \end{paracol}
 
 \end{document}
